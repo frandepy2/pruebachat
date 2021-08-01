@@ -12,7 +12,18 @@ btn.addEventListener('click', function() {
         username: username.value,
         message: message.value
     });
+    message.value = '';
 })
+
+message.addEventListener('keyup', function(e) {
+    if(e.key=='Enter') {
+        socket.emit('chat:message',{
+            username: username.value,
+            message: message.value
+        });
+        message.value = '';
+    }
+});
 
 message.addEventListener('keypress',function(){
     socket.emit('chat:typing',username.value);
