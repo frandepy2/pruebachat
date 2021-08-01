@@ -7,11 +7,23 @@ let btn = document.getElementById('send');
 let output = document.getElementById('output');
 let actions = document.getElementById('actions');
 
+function esperar() {
+    message.disabled = true;
+    btn.disabled = true;
+}
+
+function continuar() {
+    message.disabled = false;
+    btn.disabled = false;
+}
+
 btn.addEventListener('click', function() {
     socket.emit('chat:message',{
         username: username.value,
         message: message.value
     });
+    esperar();
+    setTimeout(continuar, 2000);
     message.value = '';
 })
 
@@ -21,7 +33,10 @@ message.addEventListener('keyup', function(e) {
             username: username.value,
             message: message.value
         });
+        esperar();
+        setTimeout(continuar, 2000);
         message.value = '';
+
     }
 });
 
